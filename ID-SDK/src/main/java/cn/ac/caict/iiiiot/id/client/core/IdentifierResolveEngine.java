@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Random;
 
 import cn.hutool.core.util.RandomUtil;
+
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.logging.Log;
 import com.google.gson.Gson;
@@ -601,7 +602,9 @@ public class IdentifierResolveEngine {
 	 */
 	private BaseResponse sendRequestWithTCP(BaseRequest req, InetAddress addr, int port) throws IdentifierException {
 		logger.info("sendRequestWithTCP--method--begin ["+req+"],requestId:"+req.requestId);
+
 		req.sessionId = this.sessionId;
+
 		MsgEnvelope sndEnv = createEnvelope(req);
 		req.encodedMessage = null;
 		byte[] requestMsgBuf = req.getEncodedMessage();

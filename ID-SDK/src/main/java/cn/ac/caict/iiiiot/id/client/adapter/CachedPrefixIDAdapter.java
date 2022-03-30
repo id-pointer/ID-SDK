@@ -41,7 +41,7 @@ public class CachedPrefixIDAdapter extends DefaultIDAdapter {
     }
 
     @Override
-    protected PrefixSiteInfo resolveSiteByProxy(String prefixIdentifier) throws IdentifierAdapterException, IdentifierException {
+    public PrefixSiteInfo resolveSiteByProxy(String prefixIdentifier) throws IdentifierAdapterException, IdentifierException {
         IdentifierRecord identifierRecord = IdentifierRecordCache.getInstance().get(Util.upperCasePrefix(prefixIdentifier));
         IdentifierValue[] valueArray = null;
         if (identifierRecord != null) {
@@ -50,7 +50,6 @@ public class CachedPrefixIDAdapter extends DefaultIDAdapter {
         }
         try (IDAdapter idAdapter = IDAdapterFactory.cachedInstance()) {
             valueArray = idAdapter.resolve(prefixIdentifier, null, null);
-
             valueArray = ValueHelper.getInstance().filter(valueArray, Common.HS_SITE);
             if (valueArray.length > 0) {
                 IdentifierValue iv = valueArray[0];
